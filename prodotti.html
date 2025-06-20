@@ -1,42 +1,79 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Prodotti - G A</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f4f4f4;
-      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
     }
-    .placeholder {
-      text-align: center;
-      padding: 100px 20px;
-      color: #666;
+    .product-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px auto;
+      background: white;
+      max-width: 600px;
     }
-    .navbar-brand {
-      font-weight: bold;
-      letter-spacing: 2px;
+    .product-card img {
+      width: 100%;
+      border-radius: 5px;
+    }
+    .btn-buy {
+      margin-top: 15px;
+    }
+    .form-section {
+      display: none;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav class="navbar navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="index.html">G A</a>
     </div>
   </nav>
 
-  <!-- Messaggio -->
-  <div class="placeholder">
-    <h2>Al momento non ci sono articoli disponibili.</h2>
-    <p>Torna presto per vedere le novità!</p>
+  <div class="container mt-5">
+    <div class="product-card text-center">
+      <h3>AirPods 4 (2024)</h3>
+      <p><strong>Prezzo:</strong> 65€</p>
+      <div class="row">
+        <div class="col-md-4"><img src="IMG_E89E9643-2B57-464E-B099-95F490B7F880.jpeg" alt="AirPods Box"></div>
+        <div class="col-md-4"><img src="57F0D298-16A2-4761-A861-45DA3ED553D7.jpeg" alt="AirPods in mano"></div>
+        <div class="col-md-4"><img src="AE58A3FE-E2CC-40D3-BD31-8DB071D443D6.jpeg" alt="AirPods retro scatola"></div>
+      </div>
+      <button class="btn btn-primary btn-buy" onclick="document.getElementById('order-form').style.display='block'">
+        Acquista
+      </button>
+
+      <div id="order-form" class="form-section">
+        <h5 class="mt-4">Compila per acquistare:</h5>
+        <form action="mailto:tuaemail@example.com" method="POST" enctype="text/plain">
+          <div class="mb-3">
+            <input type="text" name="Nome" class="form-control" placeholder="Il tuo nome" required />
+          </div>
+          <div class="mb-3">
+            <input type="email" name="Email" class="form-control" placeholder="La tua email" required />
+          </div>
+          <div class="mb-3">
+            <textarea name="Indirizzo" class="form-control" rows="3" placeholder="Indirizzo di spedizione" required></textarea>
+          </div>
+          <div class="mb-3">
+            <textarea name="Messaggio" class="form-control" rows="2" placeholder="Note opzionali..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Invia richiesta</button>
+        </form>
+      </div>
+    </div>
   </div>
 
-  <footer class="text-center py-4">
+  <footer class="text-center mt-5 mb-4">
     <p>&copy; 2025 G A - Tutti i diritti riservati</p>
   </footer>
 
