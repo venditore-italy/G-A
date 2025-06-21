@@ -1,69 +1,227 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>G A - Moda e Oggetti</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>G A - Shop</title>
   <style>
     body {
-      background-color: #f8f9fa;
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
+      color: white;
     }
-    .navbar-brand {
+
+    header {
+      background-color: #111;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
       font-weight: bold;
-      font-size: 1.5rem;
       letter-spacing: 2px;
     }
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x600/?fashion,store') center/cover;
-      color: white;
-      padding: 100px 20px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 3rem;
+
+    .carrello-btn {
+      cursor: pointer;
+      background: white;
+      color: black;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
       font-weight: bold;
+      transition: background 0.3s;
     }
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
+
+    .carrello-btn:hover {
+      background: #ccc;
+    }
+
+    .prodotti {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .prodotto {
+      background-color: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 260px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255,255,255,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .prodotto:hover {
+      transform: scale(1.03);
+    }
+
+    .prodotto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .prodotto h3 {
+      margin: 1rem 0 0.5rem;
+    }
+
+    .prodotto button {
+      background: white;
+      color: black;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .prodotto button:hover {
+      background: #ddd;
+    }
+
+    .carrello {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background: #111;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+      padding: 2rem;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .carrello.attivo {
+      transform: translateX(0);
+    }
+
+    .carrello h2 {
+      margin-top: 0;
+    }
+
+    .carrello ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .carrello li {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.5rem;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .carrello button {
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      background: white;
+      color: black;
+      transition: background 0.3s;
+    }
+
+    .carrello button:hover {
+      background: #ccc;
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">G A</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navGA">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navGA">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="prodotti.html">Prodotti</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contatti</a></li>
-        </ul>
-      </div>
+  <header>
+    <div class="logo">G A</div>
+    <button class="carrello-btn" onclick="toggleCarrello()">🛒 Carrello (<span id="quantitaCarrello">0</span>)</button>
+  </header>
+
+  <main class="prodotti">
+    <div class="prodotto">
+      <img src="portafogli.jpg" alt="Portafogli LV">
+      <h3>Portafogli LV</h3>
+      <p>25€</p>
+      <button onclick="aggiungiAlCarrello('Portafogli LV', 25)">Aggiungi</button>
     </div>
-  </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <h1>Benvenuto su G A</h1>
-      <p>Scopri i nostri vestiti, oggetti unici e tanto altro</p>
-      <a href="prodotti.html" class="btn btn-light btn-lg">Vai ai Prodotti</a>
+    <div class="prodotto">
+      <img src="tracolla.jpg" alt="Tracolla LV">
+      <h3>Tracolla LV</h3>
+      <p>35€</p>
+      <button onclick="aggiungiAlCarrello('Tracolla LV', 35)">Aggiungi</button>
     </div>
-  </section>
+  </main>
 
-  <!-- Footer -->
-  <footer class="text-center py-4">
-    <p>&copy; 2025 G A - Tutti i diritti riservati</p>
-  </footer>
+  <aside class="carrello" id="carrello">
+    <h2>Il tuo ordine</h2>
+    <ul id="listaCarrello"></ul>
+    <p><strong>Totale: <span id="totale">0€</span></strong></p>
+    <input type="email" id="email" placeholder="Tua email per contatto" />
+    <button onclick="inviaOrdine()">Invia ordine</button>
+  </aside>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let carrello = [];
+
+    function toggleCarrello() {
+      document.getElementById('carrello').classList.toggle('attivo');
+    }
+
+    function aggiungiAlCarrello(nome, prezzo) {
+      carrello.push({ nome, prezzo });
+      aggiornaCarrello();
+    }
+
+    function aggiornaCarrello() {
+      const lista = document.getElementById('listaCarrello');
+      const totale = document.getElementById('totale');
+      const quantita = document.getElementById('quantitaCarrello');
+      lista.innerHTML = '';
+      let somma = 0;
+
+      carrello.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nome} - ${item.prezzo}€`;
+        lista.appendChild(li);
+        somma += item.prezzo;
+      });
+
+      totale.textContent = `${somma}€`;
+      quantita.textContent = carrello.length;
+    }
+
+    function inviaOrdine() {
+      const email = document.getElementById('email').value;
+      if (!email.includes('@')) {
+        alert('Inserisci una email valida.');
+        return;
+      }
+      alert(`Grazie! Ti contatteremo via email per completare l’ordine.`);
+      carrello = [];
+      aggiornaCarrello();
+      toggleCarrello();
+      window.location.href = 'grazie.html';
+    }
+  </script>
+
 </body>
 </html>
