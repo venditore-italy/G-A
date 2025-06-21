@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>G A - Shop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G A - Vendita Elegante</title>
   <style>
     body {
       margin: 0;
@@ -39,6 +39,22 @@
 
     .carrello-btn:hover {
       background: #ccc;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(45deg, #111, #222);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
     }
 
     .prodotti {
@@ -101,6 +117,7 @@
       overflow-y: auto;
       transform: translateX(100%);
       transition: transform 0.3s ease-in-out;
+      z-index: 10;
     }
 
     .carrello.attivo {
@@ -154,6 +171,11 @@
     <div class="logo">G A</div>
     <button class="carrello-btn" onclick="toggleCarrello()">🛒 Carrello (<span id="quantitaCarrello">0</span>)</button>
   </header>
+
+  <section class="hero">
+    <h1>Benvenuto su G A</h1>
+    <p>Scopri prodotti esclusivi, stile e convenienza.</p>
+  </section>
 
   <main class="prodotti">
     <div class="prodotto">
