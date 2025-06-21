@@ -2,93 +2,248 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>G A - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>G A - Vendita Elegante</title>
   <style>
-    * {
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      font-family: 'Arial', sans-serif;
-      background: url('https://images.unsplash.com/photo-1542060748-10c28b62716c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #000;
       color: white;
     }
 
-    .overlay {
-      background: rgba(0, 0, 0, 0.7);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      height: 100%;
+    header {
+      background-color: #111;
+      padding: 1rem 2rem;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      text-align: center;
-      padding: 2rem;
-      animation: fadeIn 1s ease-out;
     }
 
-    h1 {
-      font-size: 5rem;
-      margin-bottom: 1rem;
-      letter-spacing: 5px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    p {
+    .logo {
       font-size: 1.8rem;
-      color: #ddd;
-      margin-bottom: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
     }
 
-    a {
-      text-decoration: none;
-      padding: 1.2rem 2.5rem;
+    .carrello-btn {
+      cursor: pointer;
       background: white;
       color: black;
-      font-size: 1.4rem;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
       font-weight: bold;
-      border-radius: 50px;
-      transition: 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+      transition: background 0.3s;
     }
 
-    a:hover {
+    .carrello-btn:hover {
+      background: #ccc;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(45deg, #111, #222);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    .prodotti {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .prodotto {
+      background-color: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 260px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255,255,255,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .prodotto:hover {
+      transform: scale(1.03);
+    }
+
+    .prodotto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .prodotto h3 {
+      margin: 1rem 0 0.5rem;
+    }
+
+    .prodotto button {
+      background: white;
+      color: black;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .prodotto button:hover {
       background: #ddd;
-      transform: scale(1.08);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
+    .carrello {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background: #111;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+      padding: 2rem;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 10;
     }
 
-    @media (max-width: 768px) {
-      h1 { font-size: 2.8rem; }
-      p { font-size: 1.2rem; }
-      a { font-size: 1rem; padding: 0.9rem 1.5rem; }
+    .carrello.attivo {
+      transform: translateX(0);
+    }
+
+    .carrello h2 {
+      margin-top: 0;
+    }
+
+    .carrello ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .carrello li {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.5rem;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .carrello button {
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      background: white;
+      color: black;
+      transition: background 0.3s;
+    }
+
+    .carrello button:hover {
+      background: #ccc;
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="container">
-    <h1>G A</h1>
-    <p>La moda incontra il lusso – Scopri ora</p>
-    <a href="prodotti.html">Scopri i prodotti</a>
-  </div>
+
+  <header>
+    <div class="logo">G A</div>
+    <button class="carrello-btn" onclick="toggleCarrello()">🛒 Carrello (<span id="quantitaCarrello">0</span>)</button>
+  </header>
+
+  <section class="hero">
+    <h1>Benvenuto su G A</h1>
+    <p>Scopri prodotti esclusivi, stile e convenienza.</p>
+  </section>
+
+  <main class="prodotti">
+    <div class="prodotto">
+      <img src="portafogli.jpg" alt="Portafogli LV">
+      <h3>Portafogli LV</h3>
+      <p>25€</p>
+      <button onclick="aggiungiAlCarrello('Portafogli LV', 25)">Aggiungi</button>
+    </div>
+
+    <div class="prodotto">
+      <img src="tracolla.jpg" alt="Tracolla LV">
+      <h3>Tracolla LV</h3>
+      <p>35€</p>
+      <button onclick="aggiungiAlCarrello('Tracolla LV', 35)">Aggiungi</button>
+    </div>
+  </main>
+
+  <aside class="carrello" id="carrello">
+    <h2>Il tuo ordine</h2>
+    <ul id="listaCarrello"></ul>
+    <p><strong>Totale: <span id="totale">0€</span></strong></p>
+    <input type="email" id="email" placeholder="Tua email per contatto" />
+    <button onclick="inviaOrdine()">Invia ordine</button>
+  </aside>
+
+  <script>
+    let carrello = [];
+
+    function toggleCarrello() {
+      document.getElementById('carrello').classList.toggle('attivo');
+    }
+
+    function aggiungiAlCarrello(nome, prezzo) {
+      carrello.push({ nome, prezzo });
+      aggiornaCarrello();
+    }
+
+    function aggiornaCarrello() {
+      const lista = document.getElementById('listaCarrello');
+      const totale = document.getElementById('totale');
+      const quantita = document.getElementById('quantitaCarrello');
+      lista.innerHTML = '';
+      let somma = 0;
+
+      carrello.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.nome} - ${item.prezzo}€`;
+        lista.appendChild(li);
+        somma += item.prezzo;
+      });
+
+      totale.textContent = `${somma}€`;
+      quantita.textContent = carrello.length;
+    }
+
+    function inviaOrdine() {
+      const email = document.getElementById('email').value;
+      if (!email.includes('@')) {
+        alert('Inserisci una email valida.');
+        return;
+      }
+      alert(`Grazie! Ti contatteremo via email per completare l’ordine.`);
+      carrello = [];
+      aggiornaCarrello();
+      toggleCarrello();
+      window.location.href = 'grazie.html';
+    }
+  </script>
+
 </body>
 </html>
