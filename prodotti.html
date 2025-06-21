@@ -2,162 +2,123 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>G A - Prodotti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prodotti - G A</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
       margin: 0;
-      background: black;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
     }
+
     header {
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #111;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .carrello-btn {
-      cursor: pointer;
-      font-size: 1.2rem;
-      background: white;
-      color: black;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-    }
-    .prodotti {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      padding: 2rem;
-    }
-    .prodotto {
-      background: #222;
+      background-color: black;
+      color: white;
       padding: 1rem;
-      border-radius: 10px;
-      width: 250px;
       text-align: center;
     }
+
+    main {
+      padding: 2rem;
+    }
+
+    .prodotto {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      max-width: 500px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+
     .prodotto img {
       width: 100%;
-      border-radius: 10px;
-    }
-    .prodotto h3 {
-      margin: 1rem 0 0.5rem;
-    }
-    .prodotto p {
+      border-radius: 8px;
       margin-bottom: 1rem;
     }
-    .prodotto button {
-      background: white;
-      color: black;
+
+    .prezzo {
+      font-size: 1.2rem;
+      color: green;
+      margin: 0.5rem 0;
+    }
+
+    .email-box {
+      margin-top: 1.5rem;
+    }
+
+    input[type="email"] {
+      padding: 0.5rem;
+      width: 80%;
+      max-width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: black;
+      color: white;
       border: none;
-      padding: 0.5rem 1rem;
       border-radius: 5px;
       cursor: pointer;
     }
 
-    .carrello {
-      position: fixed;
-      top: 0;
-      right: -400px;
-      width: 350px;
-      height: 100%;
-      background: #111;
-      color: white;
-      padding: 1rem;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-      transition: right 0.3s ease;
-      z-index: 1000;
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
     }
-    .carrello.open {
-      right: 0;
-    }
-    .carrello h2 {
-      margin-top: 0;
-    }
-    .carrello ul {
-      list-style: none;
-      padding: 0;
-    }
-    .carrello li {
-      margin-bottom: 0.5rem;
-    }
-    .carrello input, .carrello button {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 1rem;
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="logo">G A</div>
-    <button class="carrello-btn" onclick="toggleCarrello()">🛒 Carrello</button>
+    <h1>G A - Prodotti</h1>
   </header>
 
-  <div class="prodotti">
+  <main>
+
+    <!-- Portafogli -->
     <div class="prodotto">
-      <img src="portafogli.jpg" alt="Portafogli LV">
-      <h3>Portafogli LV</h3>
-      <p>25€</p>
-      <button onclick="aggiungiAlCarrello('Portafogli LV', 25)">Aggiungi al carrello</button>
+      <h2>Portafogli Louis Vuitton</h2>
+      <img src="lv-wallet.jpg" alt="Portafogli Louis Vuitton">
+      <p class="prezzo">Prezzo: 25€</p>
+      <p>Contattaci per acquistare: inserisci la tua email e ti scriveremo per info su spedizione e pagamento.</p>
+      <div class="email-box">
+        <input type="email" placeholder="La tua email" required />
+        <br>
+        <button>Invia richiesta</button>
+      </div>
     </div>
+
+    <!-- Tracolla -->
     <div class="prodotto">
-      <img src="tracolla.jpg" alt="Tracolla LV">
-      <h3>Tracolla LV</h3>
-      <p>35€</p>
-      <button onclick="aggiungiAlCarrello('Tracolla LV', 35)">Aggiungi al carrello</button>
+      <h2>Tracolla Louis Vuitton</h2>
+      <img src="lv-tracolla.jpg" alt="Tracolla Louis Vuitton">
+      <p class="prezzo">Prezzo: 35€</p>
+      <p>Contattaci per acquistare: inserisci la tua email e ti scriveremo per info su spedizione e pagamento.</p>
+      <div class="email-box">
+        <input type="email" placeholder="La tua email" required />
+        <br>
+        <button>Invia richiesta</button>
+      </div>
     </div>
-  </div>
 
-  <div class="carrello" id="carrello">
-    <h2>Il tuo carrello</h2>
-    <ul id="lista-carrello"></ul>
-    <p id="totale">Totale: 0€</p>
-    <input type="email" id="email" placeholder="La tua email">
-    <button onclick="inviaOrdine()">Invia ordine</button>
-  </div>
+  </main>
 
-  <script>
-    let carrello = [];
-    function toggleCarrello() {
-      document.getElementById('carrello').classList.toggle('open');
-    }
+  <footer>
+    © 2025 G A | Seguici su Instagram: <a href="https://www.instagram.com/venditori_italy/" target="_blank">@venditori_italy</a>
+  </footer>
 
-    function aggiungiAlCarrello(nome, prezzo) {
-      carrello.push({ nome, prezzo });
-      aggiornaCarrello();
-    }
-
-    function aggiornaCarrello() {
-      const lista = document.getElementById('lista-carrello');
-      const totale = document.getElementById('totale');
-      lista.innerHTML = '';
-      let somma = 0;
-      carrello.forEach(item => {
-        lista.innerHTML += `<li>${item.nome} - ${item.prezzo}€</li>`;
-        somma += item.prezzo;
-      });
-      totale.textContent = `Totale: ${somma}€`;
-    }
-
-    function inviaOrdine() {
-      const email = document.getElementById('email').value;
-      if (!email) {
-        alert("Inserisci la tua email");
-        return;
-      }
-      // In futuro qui puoi inviare i dati con email/Telegram
-      alert("Ordine inviato! Ti contatteremo presto.");
-      window.location.href = 'grazie.html';
-    }
-  </script>
 </body>
 </html>
