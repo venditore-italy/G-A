@@ -3,101 +3,221 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prodotti - G A</title>
+  <title>G A - Shop</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
     }
 
     header {
       background-color: black;
       color: white;
-      padding: 1rem;
       text-align: center;
+      padding: 1rem;
     }
 
-    main {
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       padding: 2rem;
+      gap: 2rem;
     }
 
     .prodotto {
       background: white;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       padding: 1rem;
-      max-width: 500px;
-      margin: 0 auto;
+      max-width: 300px;
       text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .prodotto:hover {
+      transform: scale(1.03);
     }
 
     .prodotto img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       margin-bottom: 1rem;
     }
 
     .prezzo {
       font-size: 1.2rem;
       color: green;
-      margin: 0.5rem 0;
+      margin-bottom: 1rem;
     }
 
-    .email-box {
-      margin-top: 1.5rem;
-    }
-
-    input[type="email"] {
-      padding: 0.5rem;
-      width: 80%;
-      max-width: 300px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      margin-top: 1rem;
-      padding: 0.6rem 1.2rem;
+    .btn {
       background-color: black;
       color: white;
+      padding: 0.6rem 1rem;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
 
-    footer {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #888;
+    .btn:hover {
+      background-color: #333;
+    }
+
+    /* Carrello */
+    #carrello {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 350px;
+      height: 100%;
+      background: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+      transition: right 0.5s ease;
+      padding: 1rem;
+      z-index: 1000;
+    }
+
+    #carrello.open {
+      right: 0;
+    }
+
+    #carrello h2 {
+      margin-top: 0;
+    }
+
+    .carrello-item {
+      border-bottom: 1px solid #ddd;
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .totale {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .carrello-footer {
+      margin-top: 1.5rem;
+    }
+
+    .carrello-footer input {
+      padding: 0.5rem;
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    .carrello-footer button {
+      width: 100%;
+    }
+
+    .cart-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 1001;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>G A - Prodotti</h1>
+    <h1>G A - Shop Online</h1>
   </header>
 
-  <main>
-    <div class="prodotto">
-      <h2>Portafogli Louis Vuitton</h2>
-      <img src="lv-wallet.jpg" alt="Portafogli Louis Vuitton">
-      <p class="prezzo">Prezzo: 25€</p>
-      <p>Contattaci per acquistare: inserisci la tua email e ti scriveremo per info su spedizione e pagamento.</p>
-      <div class="email-box">
-        <input type="email" placeholder="La tua email" required />
-        <br>
-        <button>Invia richiesta</button>
-      </div>
-    </div>
-  </main>
+  <!-- Pulsante carrello -->
+  <button class="cart-btn" onclick="toggleCarrello()">🛒 Carrello</button>
 
-  <footer>
-    © 2025 G A | Seguici su Instagram: <a href="https://www.instagram.com/venditori_italy/" target="_blank">@venditori_italy</a>
-  </footer>
+  <!-- Prodotti -->
+  <div class="container">
+    <div class="prodotto">
+      <h3>Portafogli Louis Vuitton</h3>
+      <img src="lv-wallet.jpg" alt="Portafogli LV">
+      <p class="prezzo">25€</p>
+      <button class="btn" onclick="aggiungiAlCarrello('Portafogli LV', 25)">Aggiungi al carrello</button>
+    </div>
+
+    <div class="prodotto">
+      <h3>Tracolla Louis Vuitton</h3>
+      <img src="lv-tracolla.jpg" alt="Tracolla LV">
+      <p class="prezzo">35€</p>
+      <button class="btn" onclick="aggiungiAlCarrello('Tracolla LV', 35)">Aggiungi al carrello</button>
+    </div>
+  </div>
+
+  <!-- Carrello -->
+  <div id="carrello">
+    <h2>Il tuo carrello</h2>
+    <div id="lista-carrello"></div>
+    <p class="totale">Totale: <span id="totale">0€</span></p>
+    <div class="carrello-footer">
+      <input type="email" placeholder="Tua email per info" id="email">
+      <button class="btn" onclick="inviaOrdine()">Conferma ordine</button>
+    </div>
+  </div>
+
+  <script>
+    let carrello = [];
+    const listaCarrello = document.getElementById('lista-carrello');
+    const totaleElem = document.getElementById('totale');
+
+    function toggleCarrello() {
+      document.getElementById('carrello').classList.toggle('open');
+    }
+
+    function aggiungiAlCarrello(nome, prezzo) {
+      carrello.push({ nome, prezzo });
+      aggiornaCarrello();
+      toggleCarrello();
+    }
+
+    function rimuoviElemento(index) {
+      carrello.splice(index, 1);
+      aggiornaCarrello();
+    }
+
+    function aggiornaCarrello() {
+      listaCarrello.innerHTML = '';
+      let totale = 0;
+      carrello.forEach((item, index) => {
+        totale += item.prezzo;
+        const div = document.createElement('div');
+        div.className = 'carrello-item';
+        div.innerHTML = `
+          <span>${item.nome} - ${item.prezzo}€</span>
+          <button onclick="rimuoviElemento(${index})">❌</button>
+        `;
+        listaCarrello.appendChild(div);
+      });
+      totaleElem.textContent = totale + '€';
+    }
+
+    function inviaOrdine() {
+      const email = document.getElementById('email').value;
+      if (!email) {
+        alert('Inserisci una email valida');
+        return;
+      }
+      if (carrello.length === 0) {
+        alert('Il carrello è vuoto!');
+        return;
+      }
+
+      alert('Grazie! Ti contatteremo via email per completare l’ordine.');
+      carrello = [];
+      aggiornaCarrello();
+      toggleCarrello();
+    }
+  </script>
 
 </body>
 </html>
