@@ -2,131 +2,174 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>G A - Prodotti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>G A - Shop</title>
   <style>
     body {
       margin: 0;
-      background: black;
-      color: white;
       font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
     }
+
     header {
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #111;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .carrello-btn {
-      cursor: pointer;
-      font-size: 1.2rem;
-      background: white;
-      color: black;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-    }
-    .prodotti {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem;
-      padding: 2rem;
-    }
-    .prodotto {
-      background: #222;
-      padding: 1rem;
-      border-radius: 10px;
-      width: 250px;
+      background-color: black;
+      color: white;
       text-align: center;
+      padding: 1rem;
     }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .prodotto {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      padding: 1rem;
+      max-width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .prodotto:hover {
+      transform: scale(1.03);
+    }
+
     .prodotto img {
       width: 100%;
       border-radius: 10px;
-    }
-    .prodotto h3 {
-      margin: 1rem 0 0.5rem;
-    }
-    .prodotto p {
       margin-bottom: 1rem;
     }
-    .prodotto button {
-      background: white;
-      color: black;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
+
+    .prezzo {
+      font-size: 1.2rem;
+      color: green;
+      margin-bottom: 1rem;
     }
 
-    .carrello {
+    .btn {
+      background-color: black;
+      color: white;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #333;
+    }
+
+    /* Carrello */
+    #carrello {
       position: fixed;
       top: 0;
-      right: -400px;
+      right: -100%;
       width: 350px;
       height: 100%;
-      background: #111;
-      color: white;
+      background: white;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+      transition: right 0.5s ease;
       padding: 1rem;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.5);
-      transition: right 0.3s ease;
       z-index: 1000;
     }
-    .carrello.open {
+
+    #carrello.open {
       right: 0;
     }
-    .carrello h2 {
+
+    #carrello h2 {
       margin-top: 0;
     }
-    .carrello ul {
-      list-style: none;
-      padding: 0;
+
+    .carrello-item {
+      border-bottom: 1px solid #ddd;
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
     }
-    .carrello li {
+
+    .totale {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .carrello-footer {
+      margin-top: 1.5rem;
+    }
+
+    .carrello-footer input {
+      padding: 0.5rem;
+      width: 100%;
       margin-bottom: 0.5rem;
     }
-    .carrello input, .carrello button {
+
+    .carrello-footer button {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 1rem;
+    }
+
+    .cart-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 1001;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <div class="logo">G A</div>
-    <button class="carrello-btn" onclick="toggleCarrello()">🛒 Carrello</button>
+    <h1>G A - Shop Online</h1>
   </header>
 
-  <div class="prodotti">
+  <!-- Pulsante carrello -->
+  <button class="cart-btn" onclick="toggleCarrello()">🛒 Carrello</button>
+
+  <!-- Prodotti -->
+  <div class="container">
     <div class="prodotto">
-      <img src="portafogli.jpg" alt="Portafogli LV">
-      <h3>Portafogli LV</h3>
-      <p>25€</p>
-      <button onclick="aggiungiAlCarrello('Portafogli LV', 25)">Aggiungi al carrello</button>
+      <h3>Portafogli Louis Vuitton</h3>
+      <img src="lv-wallet.jpg" alt="Portafogli LV">
+      <p class="prezzo">25€</p>
+      <button class="btn" onclick="aggiungiAlCarrello('Portafogli LV', 25)">Aggiungi al carrello</button>
     </div>
+
     <div class="prodotto">
-      <img src="tracolla.jpg" alt="Tracolla LV">
-      <h3>Tracolla LV</h3>
-      <p>35€</p>
-      <button onclick="aggiungiAlCarrello('Tracolla LV', 35)">Aggiungi al carrello</button>
+      <h3>Tracolla Louis Vuitton</h3>
+      <img src="lv-tracolla.jpg" alt="Tracolla LV">
+      <p class="prezzo">35€</p>
+      <button class="btn" onclick="aggiungiAlCarrello('Tracolla LV', 35)">Aggiungi al carrello</button>
     </div>
   </div>
 
-  <div class="carrello" id="carrello">
+  <!-- Carrello -->
+  <div id="carrello">
     <h2>Il tuo carrello</h2>
-    <ul id="lista-carrello"></ul>
-    <p id="totale">Totale: 0€</p>
-    <input type="email" id="email" placeholder="La tua email">
-    <button onclick="inviaOrdine()">Invia ordine</button>
+    <div id="lista-carrello"></div>
+    <p class="totale">Totale: <span id="totale">0€</span></p>
+    <div class="carrello-footer">
+      <input type="email" placeholder="Tua email per info" id="email">
+      <button class="btn" onclick="inviaOrdine()">Conferma ordine</button>
+    </div>
   </div>
 
   <script>
     let carrello = [];
+    const listaCarrello = document.getElementById('lista-carrello');
+    const totaleElem = document.getElementById('totale');
+
     function toggleCarrello() {
       document.getElementById('carrello').classList.toggle('open');
     }
@@ -134,30 +177,47 @@
     function aggiungiAlCarrello(nome, prezzo) {
       carrello.push({ nome, prezzo });
       aggiornaCarrello();
+      toggleCarrello();
+    }
+
+    function rimuoviElemento(index) {
+      carrello.splice(index, 1);
+      aggiornaCarrello();
     }
 
     function aggiornaCarrello() {
-      const lista = document.getElementById('lista-carrello');
-      const totale = document.getElementById('totale');
-      lista.innerHTML = '';
-      let somma = 0;
-      carrello.forEach(item => {
-        lista.innerHTML += `<li>${item.nome} - ${item.prezzo}€</li>`;
-        somma += item.prezzo;
+      listaCarrello.innerHTML = '';
+      let totale = 0;
+      carrello.forEach((item, index) => {
+        totale += item.prezzo;
+        const div = document.createElement('div');
+        div.className = 'carrello-item';
+        div.innerHTML = `
+          <span>${item.nome} - ${item.prezzo}€</span>
+          <button onclick="rimuoviElemento(${index})">❌</button>
+        `;
+        listaCarrello.appendChild(div);
       });
-      totale.textContent = `Totale: ${somma}€`;
+      totaleElem.textContent = totale + '€';
     }
 
     function inviaOrdine() {
       const email = document.getElementById('email').value;
       if (!email) {
-        alert("Inserisci la tua email");
+        alert('Inserisci una email valida');
         return;
       }
-      // In futuro qui puoi inviare i dati con email/Telegram
-      alert("Ordine inviato! Ti contatteremo presto.");
-      window.location.href = 'grazie.html';
+      if (carrello.length === 0) {
+        alert('Il carrello è vuoto!');
+        return;
+      }
+
+      alert('Grazie! Ti contatteremo via email per completare l’ordine.');
+      carrello = [];
+      aggiornaCarrello();
+      toggleCarrello();
     }
   </script>
+
 </body>
 </html>
