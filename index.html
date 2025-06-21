@@ -1,94 +1,318 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>G A - Home</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      height: 100%;
-      font-family: 'Arial', sans-serif;
-      background: url('https://images.unsplash.com/photo-1542060748-10c28b62716c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-    }
-
-    .overlay {
-      background: rgba(0, 0, 0, 0.7);
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-    }
-
-    .container {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-      animation: fadeIn 1s ease-out;
-    }
-
-    h1 {
-      font-size: 5rem;
-      margin-bottom: 1rem;
-      letter-spacing: 5px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    p {
-      font-size: 1.8rem;
-      color: #ddd;
-      margin-bottom: 2rem;
-    }
-
-    a {
-      text-decoration: none;
-      padding: 1.2rem 2.5rem;
-      background: white;
-      color: black;
-      font-size: 1.4rem;
-      font-weight: bold;
-      border-radius: 50px;
-      transition: 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255,255,255,0.3);
-    }
-
-    a:hover {
-      background: #ddd;
-      transform: scale(1.08);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @media (max-width: 768px) {
-      h1 { font-size: 2.8rem; }
-      p { font-size: 1.2rem; }
-      a { font-size: 1rem; padding: 0.9rem 1.5rem; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GA - Shop</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0;
+    background: #f5f7fa;
+    color: #222;
+    overflow-x: hidden;
+  }
+  header {
+    background: #0d47a1;
+    color: #fff;
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
+  header .cart {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.8rem;
+    transition: transform 0.3s ease;
+  }
+  header .cart:hover {
+    transform: scale(1.15);
+  }
+  header .cart-count {
+    position: absolute;
+    top: -10px; right: -12px;
+    background: #ff3d00;
+    color: white;
+    border-radius: 50%;
+    padding: 0 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    box-shadow: 0 0 5px #ff3d00;
+    transition: all 0.3s ease;
+  }
+  main {
+    max-width: 960px;
+    margin: 3rem auto 5rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .product {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.07);
+    width: 240px;
+    padding: 1rem;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+  }
+  .product:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+  .product img {
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .product:hover img {
+    transform: scale(1.1);
+  }
+  .product h3 {
+    margin: 1rem 0 0.3rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #0d47a1;
+  }
+  .product .price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ff3d00;
+  }
+  .product button {
+    margin-top: 1.2rem;
+    background: #0d47a1;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    box-shadow: 0 6px 12px rgba(13, 71, 161, 0.5);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .product button:hover {
+    background: #08306b;
+    transform: scale(1.05);
+  }
+  /* Carrello dropdown */
+  .cart-dropdown {
+    position: absolute;
+    right: 2rem;
+    top: 60px;
+    background: white;
+    width: 340px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    padding: 1.5rem;
+    display: none;
+    flex-direction: column;
+    z-index: 20;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .cart-dropdown.active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  .cart-item:last-child {
+    margin-bottom: 0;
+  }
+  .cart-total {
+    font-weight: 900;
+    margin-top: 1rem;
+    text-align: right;
+    font-size: 1.3rem;
+    color: #0d47a1;
+  }
+  .checkout-btn {
+    margin-top: 1.8rem;
+    background: #ff3d00;
+    color: white;
+    border: none;
+    padding: 0.9rem 1.6rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(255, 61, 0, 0.7);
+    letter-spacing: 0.05rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .checkout-btn:hover {
+    background: #cc2a00;
+    transform: scale(1.05);
+  }
+  /* Animazione immagine "volante" */
+  .fly-image {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    pointer-events: none;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease;
+    z-index: 1000;
+  }
+</style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="container">
-    <h1>G A</h1>
-    <p>La moda incontra il lusso – Scopri ora</p>
-    <a href="prodotti.html">Scopri i prodotti</a>
+
+<header>
+  GA
+  <div class="cart" id="cartBtn" title="Visualizza carrello">
+    🛒<span class="cart-count" id="cartCount">0</span>
+    <div class="cart-dropdown" id="cartDropdown" aria-label="Carrello degli acquisti">
+      <div id="cartItems">Il carrello è vuoto.</div>
+      <div class="cart-total" id="cartTotal"></div>
+      <button class="checkout-btn" id="checkoutBtn" style="display:none;">Procedi all'acquisto</button>
+    </div>
   </div>
+</header>
+
+<main>
+  <div class="product" data-id="1" data-name="Tracolla LV" data-price="40">
+    <img src="img/tracolla.jpg" alt="Tracolla LV" />
+    <h3>Tracolla LV</h3>
+    <div class="price">40€</div>
+    <button class="add-to-cart">Aggiungi al carrello</button>
+  </div>
+  <div class="product" data-id="2" data-name="Portafoglio LV" data-price="20">
+    <img src="img/portafoglio.jpg" alt="Portafoglio LV" />
+    <h3>Portafoglio LV</h3>
+    <div class="price">20€</div>
+    <button class="add-to-cart">Aggiungi al carrello</button>
+  </div>
+</main>
+
+<script>
+  const cartBtn = document.getElementById('cartBtn');
+  const cartDropdown = document.getElementById('cartDropdown');
+  const cartCount = document.getElementById('cartCount');
+  const cartItemsContainer = document.getElementById('cartItems');
+  const cartTotalElem = document.getElementById('cartTotal');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+
+  let cart = [];
+
+  function updateCartUI() {
+    if (cart.length === 0) {
+      cartItemsContainer.textContent = 'Il carrello è vuoto.';
+      cartTotalElem.textContent = '';
+      cartCount.textContent = 0;
+      checkoutBtn.style.display = 'none';
+      return;
+    }
+
+    cartItemsContainer.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.textContent = `${item.name} x${item.qty} - ${item.price * item.qty}€`;
+      cartItemsContainer.appendChild(div);
+      total += item.price * item.qty;
+    });
+    cartTotalElem.textContent = `Totale: ${total}€`;
+    cartCount.textContent = cart.reduce((acc, i) => acc + i.qty, 0);
+    checkoutBtn.style.display = 'block';
+  }
+
+  function addToCart(id, name, price) {
+    const existing = cart.find(item => item.id === id);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({id, name, price, qty: 1});
+    }
+    updateCartUI();
+  }
+
+  // Animazione immagine "volante"
+  function animateFlyImage(imgSrc, startX, startY, endX, endY) {
+    const flyImg = document.createElement('img');
+    flyImg.src = imgSrc;
+    flyImg.className = 'fly-image';
+    flyImg.style.left = startX + 'px';
+    flyImg.style.top = startY + 'px';
+    document.body.appendChild(flyImg);
+
+    requestAnimationFrame(() => {
+      flyImg.style.transform = `translate(${endX - startX}px, ${endY - startY}px) scale(0.1) rotate(720deg)`;
+      flyImg.style.opacity = '0.3';
+    });
+
+    flyImg.addEventListener('transitionend', () => {
+      flyImg.remove();
+    });
+  }
+
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', e => {
+      const productElem = e.target.closest('.product');
+      const id = productElem.dataset.id;
+      const name = productElem.dataset.name;
+      const price = Number(productElem.dataset.price);
+      const imgElem = productElem.querySelector('img');
+
+      addToCart(id, name, price);
+
+      // Posizione immagine prodotto
+      const rect = imgElem.getBoundingClientRect();
+      // Posizione carrello
+      const cartRect = cartBtn.getBoundingClientRect();
+
+      animateFlyImage(imgElem.src, rect.left, rect.top, cartRect.left + cartRect.width/2, cartRect.top + cartRect.height/2);
+    });
+  });
+
+  cartBtn.addEventListener('click', () => {
+    cartDropdown.classList.toggle('active');
+  });
+
+  // Chiudi carrello cliccando fuori
+  window.addEventListener('click', e => {
+    if (!cartBtn.contains(e.target)) {
+      cartDropdown.classList.remove('active');
+    }
+  });
+
+  // Checkout: animazione bottone e redirect
+  checkoutBtn.addEventListener('click', () => {
+    checkoutBtn.disabled = true;
+    checkoutBtn.textContent = 'Elaborazione...';
+    checkoutBtn.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+      checkoutBtn.style.transform = 'scale(0)';
+      setTimeout(() => {
+        window.location.href = 'grazie.html';
+      }, 300);
+    }, 1500);
+  });
+
+  updateCartUI();
+</script>
+
 </body>
 </html>
