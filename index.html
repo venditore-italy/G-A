@@ -1,249 +1,47 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>G A - Vendita Elegante</title>
+  <meta charset="UTF-8" />
+  <title>Benvenuto su G A</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
+      background: black;
       color: white;
-    }
-
-    header {
-      background-color: #111;
-      padding: 1rem 2rem;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-
-    .carrello-btn {
-      cursor: pointer;
-      background: white;
-      color: black;
-      border: none;
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .carrello-btn:hover {
-      background: #ccc;
-    }
-
-    .hero {
+      justify-content: center;
+      height: 100vh;
       text-align: center;
-      padding: 4rem 2rem;
-      background: linear-gradient(45deg, #111, #222);
     }
-
-    .hero h1 {
-      font-size: 2.5rem;
+    h1 {
+      font-size: 3rem;
       margin-bottom: 1rem;
     }
-
-    .hero p {
+    p {
       font-size: 1.2rem;
       color: #ccc;
     }
-
-    .prodotti {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
-    }
-
-    .prodotto {
-      background-color: #111;
-      padding: 1rem;
-      border-radius: 10px;
-      width: 260px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255,255,255,0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .prodotto:hover {
-      transform: scale(1.03);
-    }
-
-    .prodotto img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .prodotto h3 {
-      margin: 1rem 0 0.5rem;
-    }
-
-    .prodotto button {
+    a {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
       background: white;
       color: black;
-      padding: 0.5rem 1rem;
-      border: none;
+      text-decoration: none;
+      font-weight: bold;
       border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
-
-    .prodotto button:hover {
+    a:hover {
       background: #ddd;
-    }
-
-    .carrello {
-      position: fixed;
-      right: 0;
-      top: 0;
-      width: 300px;
-      height: 100%;
-      background: #111;
-      box-shadow: -5px 0 20px rgba(0,0,0,0.5);
-      padding: 2rem;
-      overflow-y: auto;
-      transform: translateX(100%);
-      transition: transform 0.3s ease-in-out;
-      z-index: 10;
-    }
-
-    .carrello.attivo {
-      transform: translateX(0);
-    }
-
-    .carrello h2 {
-      margin-top: 0;
-    }
-
-    .carrello ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .carrello li {
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.5rem;
-    }
-
-    input[type="email"] {
-      width: 100%;
-      padding: 0.6rem;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 6px;
-      border: none;
-    }
-
-    .carrello button {
-      width: 100%;
-      padding: 0.7rem;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      background: white;
-      color: black;
-      transition: background 0.3s;
-    }
-
-    .carrello button:hover {
-      background: #ccc;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="logo">G A</div>
-    <button class="carrello-btn" onclick="toggleCarrello()">🛒 Carrello (<span id="quantitaCarrello">0</span>)</button>
-  </header>
-
-  <section class="hero">
-    <h1>Benvenuto su G A</h1>
-    <p>Scopri prodotti esclusivi, stile e convenienza.</p>
-  </section>
-
-  <main class="prodotti">
-    <div class="prodotto">
-      <img src="portafogli.jpg" alt="Portafogli LV">
-      <h3>Portafogli LV</h3>
-      <p>25€</p>
-      <button onclick="aggiungiAlCarrello('Portafogli LV', 25)">Aggiungi</button>
-    </div>
-
-    <div class="prodotto">
-      <img src="tracolla.jpg" alt="Tracolla LV">
-      <h3>Tracolla LV</h3>
-      <p>35€</p>
-      <button onclick="aggiungiAlCarrello('Tracolla LV', 35)">Aggiungi</button>
-    </div>
-  </main>
-
-  <aside class="carrello" id="carrello">
-    <h2>Il tuo ordine</h2>
-    <ul id="listaCarrello"></ul>
-    <p><strong>Totale: <span id="totale">0€</span></strong></p>
-    <input type="email" id="email" placeholder="Tua email per contatto" />
-    <button onclick="inviaOrdine()">Invia ordine</button>
-  </aside>
-
-  <script>
-    let carrello = [];
-
-    function toggleCarrello() {
-      document.getElementById('carrello').classList.toggle('attivo');
-    }
-
-    function aggiungiAlCarrello(nome, prezzo) {
-      carrello.push({ nome, prezzo });
-      aggiornaCarrello();
-    }
-
-    function aggiornaCarrello() {
-      const lista = document.getElementById('listaCarrello');
-      const totale = document.getElementById('totale');
-      const quantita = document.getElementById('quantitaCarrello');
-      lista.innerHTML = '';
-      let somma = 0;
-
-      carrello.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.nome} - ${item.prezzo}€`;
-        lista.appendChild(li);
-        somma += item.prezzo;
-      });
-
-      totale.textContent = `${somma}€`;
-      quantita.textContent = carrello.length;
-    }
-
-    function inviaOrdine() {
-      const email = document.getElementById('email').value;
-      if (!email.includes('@')) {
-        alert('Inserisci una email valida.');
-        return;
-      }
-      alert(`Grazie! Ti contatteremo via email per completare l’ordine.`);
-      carrello = [];
-      aggiornaCarrello();
-      toggleCarrello();
-      window.location.href = 'grazie.html';
-    }
-  </script>
-
+  <h1>Benvenuto su <strong>G A</strong></h1>
+  <p>Scopri i nostri prodotti esclusivi</p>
+  <a href="prodotti.html">Scopri i prodotti</a>
 </body>
 </html>
