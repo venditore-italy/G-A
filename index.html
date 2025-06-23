@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GA – Catalogo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fff;
+      color: #222;
+    }
+    header {
+      background-color: #00c853;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .hero {
+      padding: 40px;
+      text-align: center;
+    }
+    .catalogo {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px;
+    }
+    .card {
+      width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .card-body h2 {
+      margin: 0 0 10px;
+      font-size: 1.4em;
+    }
+    .card-body p {
+      font-size: 0.95em;
+    }
+    .prezzo {
+      font-weight: bold;
+      color: #00c853;
+      margin: 10px 0;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    input, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    button {
+      background-color: #00c853;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    button:hover {
+      background-color: #00b74a;
+    }
+    .thankyou {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #00c853;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      background-color: #f7f7f7;
+    }
+  </style>
+</head>
+<body>
+
+  <header>GA</header>
+
+  <div class="hero">
+    <h1>Benvenuto nel catalogo GA</h1>
+    <p>Scopri stile e tecnologia in un solo posto</p>
+  </div>
+
+  <section class="catalogo">
+
+    <!-- Prodotto: AirPods 4 -->
+    <div class="card">
+      <img src="img/airpods2024.jpg" alt="AirPods 4 2024" />
+      <div class="card-body">
+        <h2>AirPods 4 (2024)</h2>
+        <p>Le nuove AirPods 4 offrono audio premium, cancellazione del rumore attiva e una vestibilità migliorata. Perfette per ogni dispositivo.</p>
+        <div class="prezzo">75€</div>
+
+        <!-- FORM -->
+        <form id="ordineForm" action="https://formsubmit.co/ga.ordini@gmail.com" method="POST" onsubmit="mostraRingraziamento();">
+          <input type="email" name="email" placeholder="La tua email" required />
+          <input type="hidden" name="prodotto" value="AirPods 4 (2024)" />
+          <button type="submit">Ordina ora</button>
+        </form>
+
+        <!-- Messaggio ringraziamento -->
+        <div id="grazie" class="thankyou">✅ Grazie per il tuo ordine! Ti contatteremo presto su Instagram.</div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    &copy; 2025 GA | Segui gli ordini su <a href="https://instagram.com/tuoinstagram" target="_blank">@tuoinstagram</a>
+  </footer>
+
+  <script>
+    function mostraRingraziamento() {
+      const form = document.getElementById("ordineForm");
+      const msg = document.getElementById("grazie");
+
+      setTimeout(() => {
+        form.style.display = "none";
+        msg.style.display = "block";
+      }, 100); // Dopo invio
+    }
+  </script>
+
+</body>
+</html>
