@@ -5,70 +5,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GA - Catalogo</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #fff;
       color: #222;
     }
     header {
       background: #00c853;
       color: #fff;
-      padding: 15px 20px;
+      padding: 20px 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     header h1 {
       margin: 0;
-      font-size: 1.5em;
+      font-size: 2em;
     }
     nav a {
       color: white;
-      margin-left: 20px;
+      margin-left: 25px;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 1em;
     }
     .section {
       display: none;
-      padding: 30px 20px;
+      padding: 40px 20px;
+      animation: fadeIn 0.5s ease-in-out;
     }
     .active {
       display: block;
     }
-    .product-card {
-      max-width: 600px;
-      margin: 0 auto;
-      border: 1px solid #ccc;
-      padding: 20px;
-      border-radius: 10px;
+    .hero {
+      background: linear-gradient(to right, #e8f5e9, #ffffff);
+      text-align: center;
+      padding: 60px 20px;
+      border-bottom: 2px solid #e0e0e0;
     }
-    .product-card img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .price {
+    .hero h2 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
       color: #00c853;
-      font-size: 1.3em;
-      margin-top: 10px;
     }
-    button {
+    .hero p {
+      font-size: 1.2em;
+      color: #444;
+    }
+    .product-preview {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      max-width: 320px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .card img {
+      width: 100%;
+    }
+    .card-body {
+      padding: 15px;
+    }
+    .card-body h3 {
+      margin-top: 0;
+      color: #00c853;
+    }
+    .card-body .price {
+      font-weight: bold;
+      margin: 10px 0;
+      font-size: 1.2em;
+    }
+    form input, form button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+    form button {
       background: #00c853;
       color: white;
       border: none;
-      padding: 10px 20px;
-      margin-top: 20px;
-      font-size: 1em;
-      border-radius: 8px;
+      font-weight: bold;
       cursor: pointer;
-    }
-    form input {
-      padding: 10px;
-      width: 100%;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1em;
     }
     .review-box {
       background: #f4f4f4;
@@ -78,9 +114,14 @@
     }
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px 20px;
       background: #f7f7f7;
       font-size: 0.9em;
+      margin-top: 60px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -99,17 +140,33 @@
 
 <!-- Home -->
 <section id="home" class="section active">
-  <h2>Benvenuto su GA</h2>
-  <p>Scopri i nostri prodotti esclusivi, come AirPods 4 2024.</p>
+  <div class="hero">
+    <h2>Benvenuto su GA</h2>
+    <p>Scopri la nuova generazione di prodotti premium: stile, qualità e tecnologia.</p>
+  </div>
+  <div class="product-preview">
+    <div class="card">
+      <img src="img/airpods2024.jpg" alt="AirPods 4 2024">
+      <div class="card-body">
+        <h3>AirPods 4 (2024)</h3>
+        <p>Nuova versione con cancellazione attiva del rumore, audio spaziale e batteria potenziata.</p>
+        <div class="price">75€</div>
+        <button onclick="showSection('prodotto')">Dettagli</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Prodotto -->
 <section id="prodotto" class="section">
-  <div class="product-card">
+  <div class="card">
     <img src="img/airpods2024.jpg" alt="AirPods 4 2024">
-    <h3>AirPods 4 (2024)</h3>
-    <p>Le nuove AirPods 4 offrono audio premium, cancellazione attiva del rumore e durata della batteria migliorata. Compatibili con tutti i dispositivi Apple.</p>
-    <div class="price">75€</div>
+    <div class="card-body">
+      <h3>AirPods 4 (2024)</h3>
+      <p>Le nuove AirPods 4 offrono audio premium, cancellazione attiva del rumore e durata della batteria migliorata. Compatibili con tutti i dispositivi Apple.</p>
+      <div class="price">75€</div>
+      <button onclick="showSection('ordine')">Ordina ora</button>
+    </div>
   </div>
 </section>
 
@@ -122,7 +179,7 @@
     <button type="submit">Invia ordine</button>
   </form>
   <div id="grazie" style="display:none; color:#00c853; font-weight:bold; margin-top:20px">
-    Grazie per l'ordine! Ti contatteremo su Instagram: <a href="https://instagram.com/venditori_italy" target="_blank">@venditori_italy</a>
+    ✅ Grazie per l'ordine! Ti contatteremo presto su <a href="https://instagram.com/venditori_italy" target="_blank">@venditori_italy</a>
   </div>
 </section>
 
@@ -139,7 +196,7 @@
 <!-- Contatti -->
 <section id="contatti" class="section">
   <h2>Contattaci</h2>
-  <p>Per qualsiasi domanda, scrivici su <a href="https://instagram.com/venditori_italy" target="_blank">Instagram</a>.</p>
+  <p>Scrivici su Instagram: <a href="https://instagram.com/venditori_italy" target="_blank">@venditori_italy</a></p>
 </section>
 
 <footer>
