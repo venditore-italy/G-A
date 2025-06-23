@@ -1,48 +1,37 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GA Store</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #fff; color: #222; }
     header { background: #00c853; padding: 15px 30px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     header h1 { margin: 0; font-size: 1.8em; color: white; }
-    header input { width: 300px; padding: 8px; border-radius: 4px; border: none; }
+    header input[type="text"] { width: 300px; padding: 8px; border-radius: 4px; border: none; }
     header button { margin-left: 10px; padding: 8px 16px; background: white; color: #00c853; border: none; cursor: pointer; font-weight: bold; }
     nav a { color: white; margin-left: 20px; text-decoration: none; font-size: 1em; }
-    .hero { padding: 60px 30px; background: linear-gradient(#e8f5e9, #fff); text-align: center; }
-    .hero h2 { font-size: 2.8em; color: #00c853; margin-bottom: 10px; }
-    .hero p { font-size: 1.2em; color: #555; }
+    .hero { padding: 100px 30px; background: linear-gradient(#e8f5e9, #fff); text-align: center; }
+    .hero h2 { font-size: 3.2em; color: #00c853; margin-bottom: 10px; font-weight: bold; }
     .grid { display: flex; flex-wrap: wrap; gap: 20px; padding: 30px; justify-content: center; }
-    .card { width: 280px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform .2s; }
+    .card { width: 280px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform .2s; cursor: pointer; }
     .card:hover { transform: translateY(-5px); }
     .card img { width: 100%; height: auto; }
     .card-body { padding: 15px; }
     .card-body h3 { margin: 0 0 8px; color: #00c853; font-size: 1.2em; }
     .card-body p { font-size: 0.95em; color: #444; margin: 0 0 10px; height: 38px; overflow: hidden; }
     .price { font-size: 1.3em; font-weight: bold; color: #00c853; margin-bottom: 10px; }
-    .card-body button { width: 100%; padding: 10px; background: #00c853; color: white; border: none; border-radius: 4px; cursor: pointer; }
-    .card-body button:hover { background: #00b74a; }
-    .section { display: none; padding: 40px 30px; animation: fadeIn 0.4s; }
-    .active { display: block !important; }
-    .product-page { max-width: 900px; margin: auto; display: flex; gap: 30px; flex-wrap: wrap; }
-    .product-page img { flex: 1; max-width: 400px; border-radius: 8px; }
-    .product-info { flex: 1; }
-    .product-info h2 { color: #00c853; margin-top: 0; }
-    .product-info p { font-size: 1em; color: #333; line-height: 1.5; }
-    form input, form button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 4px; font-size: 1em; }
-    form button { background: #00c853; color: white; border: none; font-weight: bold; cursor: pointer; }
-    form button:hover { background: #00b74a; }
-    .thankyou { color: #00c853; font-size: 1.2em; margin-top: 20px; font-weight: bold; }
-    .reviews .review { border-bottom: 1px solid #ddd; padding: 15px 0; }
-    .reviews .review:last-child { border-bottom: none; }
-    .reviews .review h4 { margin: 0; font-size: 1em; }
-    .reviews .review p { margin: 5px 0 0; font-size: 0.95em; color: #555; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 999; }
+    .modal-content { background: white; padding: 30px; border-radius: 8px; max-width: 600px; width: 90%; position: relative; }
+    .modal img { width: 100%; max-height: 300px; object-fit: contain; }
+    .close { position: absolute; top: 10px; right: 20px; font-size: 24px; cursor: pointer; }
+    .stars { color: #ffb300; font-size: 1.2em; margin-bottom: 10px; }
+    .product-detail h2 { color: #00c853; }
+    .order-form input, .order-form button { width: 100%; padding: 10px; margin: 8px 0; border-radius: 4px; }
+    .order-form button { background: #00c853; color: white; border: none; font-weight: bold; cursor: pointer; }
+    .auth-form { padding: 20px; max-width: 400px; margin: auto; }
     footer { background: #f7f7f7; text-align: center; padding: 30px; margin-top: 60px; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @media(max-width:768px){ .product-page { flex-direction: column; align-items: center; } header input { width: 150px; } }
   </style>
 </head>
 <body>
@@ -50,99 +39,82 @@
 <header>
   <h1>GA Store</h1>
   <div>
-    <input type="text" placeholder="Cerca prodotti...">
-    <button>Cerca</button>
-    <nav>
-      <a href="#" onclick="show('home')">Home</a>
-      <a href="#" onclick="show('prodotto')">Prodotto</a>
-      <a href="#" onclick="show('ordine')">Ordina</a>
-      <a href="#" onclick="show('recensioni')">Recensioni</a>
-      <a href="#" onclick="show('contatti')">Contatti</a>
-    </nav>
+    <input type="text" id="search" placeholder="Cerca prodotti...">
+    <button onclick="searchProduct()">Cerca</button>
   </div>
 </header>
 
-<div id="home" class="section active">
+<div class="auth-form">
+  <h2>Crea un account per continuare</h2>
+  <form onsubmit="event.preventDefault(); showHome()">
+    <input type="text" placeholder="Nome Instagram" required>
+    <input type="email" placeholder="Email" required>
+    <button type="submit">Entra nel sito</button>
+  </form>
+</div>
+
+<div id="main" style="display:none;">
   <div class="hero">
-    <h2>Benvenuto da GA</h2>
-    <p>I migliori prodotti premium ora a portata di clic.</p>
+    <h2>Benvenuto su GA — Lusso e Tecnologia per Tutti</h2>
+    <p>Scopri i migliori prodotti a prezzi imbattibili. Qualità, stile, e servizio garantiti.</p>
   </div>
-  <div class="grid">
-    <div class="card">
-      <img src="img/airpods2024.jpg" alt="AirPods 4 2024">
+
+  <div class="grid" id="productGrid">
+    <div class="card" onclick="openModal()">
+      <img src="airpods2024.jpg" alt="AirPods 4 2024">
       <div class="card-body">
         <h3>AirPods 4 (2024)</h3>
-        <p>Cancellazione rumore, audio spaziale, autonomia estesa.</p>
+        <p>Nuova generazione, cancellazione rumore, audio spaziale.</p>
         <div class="price">75€</div>
-        <button onclick="show('prodotto')">Dettagli</button>
       </div>
     </div>
-    <!-- Aggiungi altre card qui -->
   </div>
 </div>
 
-<div id="prodotto" class="section">
-  <div class="product-page">
-    <img src="img/airpods2024.jpg" alt="AirPods 4 2024">
-    <div class="product-info">
-      <h2>AirPods 4 (2024)</h2>
-      <p>Le nuove AirPods 4 combinano la migliore tecnologia Apple: cancellazione attiva del rumore, audio spaziale, chip migliorato e autonomia fino a 6 ore continuative. Custodia con ricarica rapida inclusa.</p>
-      <div class="price">75€</div>
-      <button onclick="show('ordine')">Ordina Ora</button>
-    </div>
+<!-- MODAL DETTAGLIO PRODOTTO -->
+<div class="modal" id="productModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img src="airpods2024.jpg" alt="Dettaglio AirPods">
+    <div class="stars">★★★★★</div>
+    <h2>AirPods 4 (2024)</h2>
+    <p>Le nuove AirPods 4 combinano la migliore tecnologia Apple: cancellazione attiva del rumore, audio spaziale, chip migliorato e autonomia fino a 6 ore continuative. Custodia con ricarica rapida inclusa.</p>
+    <div class="price">75€</div>
+    <form class="order-form" action="https://formsubmit.co/ga.ordini@gmail.com" method="POST">
+      <input type="text" name="instagram" placeholder="Tuo nome Instagram" required>
+      <input type="email" name="email" placeholder="La tua email" required>
+      <input type="hidden" name="prodotto" value="AirPods 4 (2024)">
+      <input type="hidden" name="prezzo" value="75€">
+      <button type="submit">Ordina ora</button>
+    </form>
   </div>
 </div>
 
-<div id="ordine" class="section">
-  <h2>Modulo Ordine</h2>
-  <form action="https://formsubmit.co/ga.ordini@gmail.com" method="POST" onsubmit="handleOrder(event)">
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="hidden" name="prodotto" value="AirPods 4 (2024)">
-    <input type="hidden" name="_next" value="#">
-    <button type="submit">Invia Ordine</button>
-  </form>
-  <div id="thanks" class="thankyou" style="display:none;">
-    ✅ Grazie! Ti contatteremo su <a href="https://instagram.com/venditori_italy" target="_blank">@venditori_italy</a>.
-  </div>
-</div>
-
-<div id="recensioni" class="section reviews">
-  <h2>Recensioni Verificate</h2>
-  <!-- Esempi reali: sostituisci qui con recensioni ricevute -->
-  <!-- Mantieni solo recensioni da clienti verificati -->
-  <div class="review">
-    <h4>Anna P. – ⭐⭐⭐⭐⭐</h4>
-    <p>Ottimo prodotto, suono pulito e niente rumore. Consegna veloce!</p>
-  </div>
-  <div class="review">
-    <h4>Marco L. – ⭐⭐⭐⭐</h4>
-    <p>Perfette, qualità/prezzo imbattibile. La batteria dura davvero.</p>
-  </div>
-</div>
-
-<div id="contatti" class="section">
-  <h2>Contattaci</h2>
-  <p>Per info o supporto scrivici su Instagram:</p>
-  <p><strong><a href="https://instagram.com/venditori_italy" target="_blank">@venditori_italy</a></strong></p>
-</div>
-
-<footer>&copy; 2025 GA Store • Tutti i diritti riservati</footer>
+<footer>
+  &copy; 2025 GA Store • Seguici su <a href="https://instagram.com/venditori_italy" target="_blank">@venditori_italy</a>
+</footer>
 
 <script>
-  function show(id) {
-    document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+  function showHome() {
+    document.querySelector('.auth-form').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
   }
-  function handleOrder(e) {
-    e.preventDefault();
-    const form = e.target;
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form)
-    }).then(() => {
-      form.style.display = 'none';
-      document.getElementById('thanks').style.display = 'block';
+
+  function searchProduct() {
+    const term = document.getElementById('search').value.toLowerCase();
+    const products = document.querySelectorAll('.card');
+    products.forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(term) ? 'block' : 'none';
     });
+  }
+
+  function openModal() {
+    document.getElementById('productModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('productModal').style.display = 'none';
   }
 </script>
 
