@@ -1,206 +1,164 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GA - Catalogo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff;
-      color: #111;
-      scroll-behavior: smooth;
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #222;
     }
-
     header {
-      background-color: #1e7732;
-      color: white;
+      background: #1e7732;
+      color: #fff;
       padding: 20px;
       text-align: center;
     }
-
     nav {
-      background-color: #e5f3e8;
+      background: #f0f0f0;
       padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
-    nav input[type="text"] {
-      padding: 8px;
-      width: 200px;
+    nav input {
+      padding: 10px;
       border-radius: 6px;
       border: 1px solid #ccc;
     }
-
     .hero {
+      padding: 80px 20px;
       text-align: center;
-      padding: 60px 20px;
-      background: #f0f0f0;
+      background: #eafce8;
     }
-
     .hero h1 {
       font-size: 3em;
-      margin-bottom: 10px;
-      animation: fadeIn 2s ease-in-out;
     }
-
-    .hero p {
-      font-size: 1.2em;
-      color: #333;
-      animation: fadeIn 3s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     .products {
-      text-align: center;
-      margin: 40px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px 20px;
     }
-
     .product {
-      margin: 20px;
-      display: inline-block;
-    }
-
-    .product img {
-      width: 220px;
-      height: auto;
+      border: 1px solid #ddd;
       border-radius: 12px;
+      margin: 10px;
+      padding: 20px;
+      width: 250px;
+      text-align: center;
+      transition: 0.3s ease;
+    }
+    .product:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.3s ease;
     }
-
-    .product img:hover {
-      transform: scale(1.05);
-    }
-
     .modal {
       display: none;
       position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
+      z-index: 10;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.7);
       justify-content: center;
       align-items: center;
     }
-
     .modal-content {
-      background: white;
+      background: #fff;
       padding: 30px;
-      border-radius: 15px;
+      border-radius: 10px;
       max-width: 500px;
       text-align: center;
+      position: relative;
     }
-
     .modal-content img {
       width: 100%;
-      border-radius: 12px;
+      border-radius: 10px;
     }
-
-    .modal-content h2 {
-      margin-top: 20px;
-      font-size: 1.5em;
-    }
-
-    .modal-content p {
-      font-size: 1.1em;
-      color: #333;
-    }
-
     .close {
       position: absolute;
-      top: 30px;
-      right: 40px;
-      font-size: 30px;
-      color: white;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
       cursor: pointer;
     }
-
+    .reviews {
+      text-align: left;
+      font-size: 0.95em;
+      margin-top: 10px;
+    }
     .order-button {
-      background-color: #1e7732;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      cursor: pointer;
       margin-top: 20px;
+      padding: 10px 20px;
+      background: #1e7732;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
     }
-
-    #form-section, #thankyou, #contact {
+    #form-section, #thankyou {
       display: none;
       padding: 40px 20px;
       text-align: center;
     }
-
     iframe {
-      width: 95%;
-      max-width: 800px;
+      width: 90%;
       height: 600px;
       border: none;
     }
-
-    .reviews {
-      text-align: left;
-      margin-top: 20px;
-    }
-
-    .reviews p {
-      margin: 5px 0;
-      font-style: italic;
-      color: #444;
-    }
-
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 30px;
+      background: #f5f5f5;
       font-size: 0.9em;
-      color: #666;
+      color: #444;
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>GA</h1>
-    <p>Catalogo Ufficiale</p>
+    <p>Catalogo di vestiti e oggetti esclusivi</p>
   </header>
 
   <nav>
-    <input type="text" id="search" placeholder="Cerca prodotto..." onkeyup="searchProduct()">
+    <span>Cerca:</span>
+    <input type="text" id="search" placeholder="Cerca un prodotto" onkeyup="searchProduct()">
   </nav>
 
   <section class="hero">
     <h1>Benvenuto su GA</h1>
-    <p>Scopri i migliori prodotti esclusivi. Ordina in pochi clic.</p>
+    <p>Il tuo negozio esclusivo. Abbigliamento, tecnologia e molto altro.</p>
   </section>
 
   <section class="products" id="product-list">
     <div class="product" data-name="airpods">
       <img src="airpods2024.jpg" alt="AirPods 2024" onclick="openModal()">
+      <h3>AirPods 4 - 2024</h3>
+      <p><strong>€75</strong></p>
     </div>
   </section>
 
   <div class="modal" id="modal">
     <div class="modal-content">
-      <span class="close" id="close-modal">&times;</span>
+      <span class="close" onclick="closeModal()">&times;</span>
       <img src="airpods2024.jpg" alt="AirPods Dettagliate">
       <h2>AirPods 4 - 2024</h2>
       <div class="reviews">
-        <p>⭐️⭐️⭐️⭐️⭐️ "Audio spaziale incredibile!" - @mario</p>
-        <p>⭐️⭐️⭐️⭐️⭐️ "Comodissime e batteria infinita." - @giulia.tech</p>
+        <p>⭐️⭐️⭐️⭐️⭐️ "Audio fantastico!" - @utente.reale</p>
+        <p>⭐️⭐️⭐️⭐️ "Ottima qualità e batteria lunga." - @reviewer_it</p>
       </div>
-      <p>Ultima generazione con audio spaziale, cancellazione attiva del rumore, ricarica wireless ultra rapida. Compatibili con Apple e Android. 🔊</p>
-      <strong style="font-size: 1.3em;">€75</strong><br>
+      <p>Nuove AirPods 4, qualità audio migliorata, cancellazione del rumore, compatibili con iPhone e Android.</p>
+      <p><strong>€75</strong></p>
       <button class="order-button" onclick="showForm()">Ordina ora</button>
     </div>
   </div>
@@ -210,15 +168,9 @@
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeCiZ7Ww2Tep3T9uftw8hFt7-Giv2ZggopA-K9zJQ2jopDBrA/viewform?embedded=true"></iframe>
   </section>
 
-  <div id="thankyou">
+  <section id="thankyou">
     <h2>Grazie per il tuo ordine! 💚</h2>
     <p>Ti contatteremo su Instagram per confermare l'acquisto.</p>
-  </div>
-
-  <section id="contact">
-    <h2>Contattaci</h2>
-    <p>Instagram: <strong>@venditori_italy</strong></p>
-    <p>Email: <strong>ga@supporto.it</strong></p>
   </section>
 
   <footer>
@@ -226,33 +178,25 @@
   </footer>
 
   <script>
-    const modal = document.getElementById("modal");
-    const closeModal = document.getElementById("close-modal");
-
     function openModal() {
-      modal.style.display = "flex";
+      document.getElementById('modal').style.display = 'flex';
     }
-
-    closeModal.onclick = () => modal.style.display = "none";
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
-
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
     function showForm() {
-      document.getElementById("form-section").style.display = "block";
-      modal.style.display = "none";
-      setTimeout(() => {
-        window.scrollTo({ top: document.getElementById("form-section").offsetTop, behavior: 'smooth' });
-      }, 200);
+      document.getElementById('form-section').style.display = 'block';
+      document.getElementById('modal').style.display = 'none';
+      window.scrollTo({ top: document.getElementById("form-section").offsetTop, behavior: 'smooth' });
     }
-
     function searchProduct() {
       let input = document.getElementById("search").value.toLowerCase();
       let products = document.querySelectorAll(".product");
       products.forEach(p => {
         let name = p.getAttribute("data-name").toLowerCase();
-        p.style.display = name.includes(input) ? "inline-block" : "none";
+        p.style.display = name.includes(input) ? "block" : "none";
       });
     }
   </script>
-
 </body>
 </html>
