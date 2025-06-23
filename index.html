@@ -2,13 +2,13 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GA - Catalogo Ufficiale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GA - Catalogo</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #ffffff;
+      background-color: #fff;
       color: #111;
     }
 
@@ -33,17 +33,6 @@
     .hero p {
       font-size: 1.2em;
       color: #333;
-    }
-
-    .hero a {
-      display: inline-block;
-      margin-top: 20px;
-      background-color: #1e7732;
-      color: white;
-      padding: 12px 30px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
     }
 
     .products {
@@ -108,13 +97,36 @@
       cursor: pointer;
     }
 
+    .order-button {
+      background-color: #1e7732;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    #form-section {
+      display: none;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
     iframe {
-      display: block;
-      margin: 60px auto;
       width: 95%;
       max-width: 800px;
-      border: none;
       height: 600px;
+      border: none;
+    }
+
+    #thankyou {
+      display: none;
+      text-align: center;
+      padding: 80px 20px;
+      font-size: 1.6em;
+      color: #1e7732;
     }
 
     footer {
@@ -123,20 +135,18 @@
       font-size: 0.9em;
       color: #666;
     }
-
   </style>
 </head>
 <body>
 
   <header>
     <h1>GA</h1>
-    <p>Catalogo ufficiale</p>
+    <p>Catalogo Ufficiale</p>
   </header>
 
   <section class="hero">
     <h1>Benvenuto su GA</h1>
-    <p>Scopri i migliori prodotti in stile esclusivo. Ordina in pochi clic.</p>
-    <a href="#modulo">Inizia</a>
+    <p>Scopri i migliori prodotti esclusivi. Ordina in pochi clic.</p>
   </section>
 
   <section class="products">
@@ -144,21 +154,29 @@
     <img src="airpods2024.jpg" alt="AirPods 2024" id="product-img">
   </section>
 
-  <!-- MODAL -->
+  <!-- MODAL DETTAGLI PRODOTTO -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" id="close-modal">&times;</span>
       <img src="airpods2024.jpg" alt="AirPods Dettagliate">
       <h2>AirPods 4 - 2024</h2>
-      <p>Ultima generazione di AirPods, con audio spaziale, cancellazione attiva del rumore e ricarica wireless ultra rapida. Compatibili con tutti i dispositivi Apple e Android. 🔊</p>
-      <strong style="font-size: 1.3em;">€75</strong>
+      <p>Ultima generazione con audio spaziale, cancellazione attiva del rumore, ricarica wireless ultra rapida. Compatibili con Apple e Android. 🔊</p>
+      <strong style="font-size: 1.3em;">€75</strong><br>
+      <button class="order-button" onclick="showForm()">Ordina ora</button>
     </div>
   </div>
 
   <!-- FORM ORDINE -->
-  <section id="modulo">
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeCiZ7Ww2Tep3T9uftw8hFt7-Giv2ZggopA-K9zJQ2jopDBrA/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Caricamento…</iframe>
+  <section id="form-section">
+    <h2>Completa il tuo ordine</h2>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeCiZ7Ww2Tep3T9uftw8hFt7-Giv2ZggopA-K9zJQ2jopDBrA/viewform?embedded=true"></iframe>
   </section>
+
+  <!-- PAGINA GRAZIE -->
+  <div id="thankyou">
+    <h2>Grazie per il tuo ordine! 💚</h2>
+    <p>Ti contatteremo su Instagram per confermare l'acquisto.</p>
+  </div>
 
   <footer>
     Seguici su Instagram: <strong>@venditori_italy</strong> — &copy; 2025 GA
@@ -169,20 +187,17 @@
     const productImg = document.getElementById("product-img");
     const closeModal = document.getElementById("close-modal");
 
-    productImg.onclick = function () {
-      modal.style.display = "flex";
-    };
+    productImg.onclick = () => modal.style.display = "flex";
+    closeModal.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
 
-    closeModal.onclick = function () {
+    function showForm() {
+      document.getElementById("form-section").style.display = "block";
       modal.style.display = "none";
-    };
-
-    window.onclick = function (event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    };
+      setTimeout(() => {
+        window.scrollTo({ top: document.getElementById("form-section").offsetTop, behavior: 'smooth' });
+      }, 200);
+    }
   </script>
-
 </body>
 </html>
