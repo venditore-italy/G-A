@@ -10,6 +10,7 @@
       font-family: 'Segoe UI', sans-serif;
       background-color: #fff;
       color: #111;
+      scroll-behavior: smooth;
     }
 
     header {
@@ -17,6 +18,21 @@
       color: white;
       padding: 20px;
       text-align: center;
+    }
+
+    nav {
+      background-color: #e5f3e8;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav input[type="text"] {
+      padding: 8px;
+      width: 200px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
 
     .hero {
@@ -28,11 +44,18 @@
     .hero h1 {
       font-size: 3em;
       margin-bottom: 10px;
+      animation: fadeIn 2s ease-in-out;
     }
 
     .hero p {
       font-size: 1.2em;
       color: #333;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .products {
@@ -40,7 +63,12 @@
       margin: 40px auto;
     }
 
-    .products img {
+    .product {
+      margin: 20px;
+      display: inline-block;
+    }
+
+    .product img {
       width: 220px;
       height: auto;
       border-radius: 12px;
@@ -48,7 +76,7 @@
       transition: transform 0.3s ease;
     }
 
-    .products img:hover {
+    .product img:hover {
       transform: scale(1.05);
     }
 
@@ -108,7 +136,7 @@
       margin-top: 20px;
     }
 
-    #form-section {
+    #form-section, #thankyou, #contact {
       display: none;
       padding: 40px 20px;
       text-align: center;
@@ -121,12 +149,15 @@
       border: none;
     }
 
-    #thankyou {
-      display: none;
-      text-align: center;
-      padding: 80px 20px;
-      font-size: 1.6em;
-      color: #1e7732;
+    .reviews {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .reviews p {
+      margin: 5px 0;
+      font-style: italic;
+      color: #444;
     }
 
     footer {
@@ -144,39 +175,51 @@
     <p>Catalogo Ufficiale</p>
   </header>
 
+  <nav>
+    <input type="text" id="search" placeholder="Cerca prodotto..." onkeyup="searchProduct()">
+  </nav>
+
   <section class="hero">
     <h1>Benvenuto su GA</h1>
     <p>Scopri i migliori prodotti esclusivi. Ordina in pochi clic.</p>
   </section>
 
-  <section class="products">
-    <h2>Prodotto in evidenza</h2>
-    <img src="airpods2024.jpg" alt="AirPods 2024" id="product-img">
+  <section class="products" id="product-list">
+    <div class="product" data-name="airpods">
+      <img src="airpods2024.jpg" alt="AirPods 2024" onclick="openModal()">
+    </div>
   </section>
 
-  <!-- MODAL DETTAGLI PRODOTTO -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" id="close-modal">&times;</span>
       <img src="airpods2024.jpg" alt="AirPods Dettagliate">
       <h2>AirPods 4 - 2024</h2>
+      <div class="reviews">
+        <p>⭐️⭐️⭐️⭐️⭐️ "Audio spaziale incredibile!" - @mario</p>
+        <p>⭐️⭐️⭐️⭐️⭐️ "Comodissime e batteria infinita." - @giulia.tech</p>
+      </div>
       <p>Ultima generazione con audio spaziale, cancellazione attiva del rumore, ricarica wireless ultra rapida. Compatibili con Apple e Android. 🔊</p>
       <strong style="font-size: 1.3em;">€75</strong><br>
       <button class="order-button" onclick="showForm()">Ordina ora</button>
     </div>
   </div>
 
-  <!-- FORM ORDINE -->
   <section id="form-section">
     <h2>Completa il tuo ordine</h2>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeCiZ7Ww2Tep3T9uftw8hFt7-Giv2ZggopA-K9zJQ2jopDBrA/viewform?embedded=true"></iframe>
   </section>
 
-  <!-- PAGINA GRAZIE -->
   <div id="thankyou">
     <h2>Grazie per il tuo ordine! 💚</h2>
     <p>Ti contatteremo su Instagram per confermare l'acquisto.</p>
   </div>
+
+  <section id="contact">
+    <h2>Contattaci</h2>
+    <p>Instagram: <strong>@venditori_italy</strong></p>
+    <p>Email: <strong>ga@supporto.it</strong></p>
+  </section>
 
   <footer>
     Seguici su Instagram: <strong>@venditori_italy</strong> — &copy; 2025 GA
@@ -184,10 +227,12 @@
 
   <script>
     const modal = document.getElementById("modal");
-    const productImg = document.getElementById("product-img");
     const closeModal = document.getElementById("close-modal");
 
-    productImg.onclick = () => modal.style.display = "flex";
+    function openModal() {
+      modal.style.display = "flex";
+    }
+
     closeModal.onclick = () => modal.style.display = "none";
     window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
 
@@ -198,6 +243,16 @@
         window.scrollTo({ top: document.getElementById("form-section").offsetTop, behavior: 'smooth' });
       }, 200);
     }
+
+    function searchProduct() {
+      let input = document.getElementById("search").value.toLowerCase();
+      let products = document.querySelectorAll(".product");
+      products.forEach(p => {
+        let name = p.getAttribute("data-name").toLowerCase();
+        p.style.display = name.includes(input) ? "inline-block" : "none";
+      });
+    }
   </script>
+
 </body>
 </html>
