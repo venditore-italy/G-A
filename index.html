@@ -1,151 +1,162 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GA – Catalogo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GA - Catalogo</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #fff;
+      font-family: Arial, sans-serif;
+      background: #fff;
       color: #222;
     }
     header {
-      background-color: #00c853;
-      padding: 20px;
-      text-align: center;
+      background: #00c853;
+      color: #fff;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    nav a {
       color: white;
-      font-size: 2em;
+      margin-left: 20px;
+      text-decoration: none;
       font-weight: bold;
     }
-    .hero {
-      padding: 40px;
-      text-align: center;
+    .section {
+      display: none;
+      padding: 30px 20px;
     }
-    .catalogo {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      padding: 40px;
+    .active {
+      display: block;
     }
-    .card {
-      width: 300px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-10px);
-    }
-    .card img {
-      width: 100%;
-      height: auto;
-    }
-    .card-body {
+    .product-card {
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid #ccc;
       padding: 20px;
+      border-radius: 10px;
     }
-    .card-body h2 {
-      margin: 0 0 10px;
-      font-size: 1.4em;
+    .product-card img {
+      width: 100%;
+      border-radius: 10px;
     }
-    .card-body p {
-      font-size: 0.95em;
-    }
-    .prezzo {
-      font-weight: bold;
+    .price {
       color: #00c853;
-      margin: 10px 0;
+      font-size: 1.3em;
+      margin-top: 10px;
     }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
+    button {
+      background: #00c853;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
     }
-    input, button {
+    form input {
       padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1em;
     }
-    button {
-      background-color: #00c853;
-      color: white;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-    button:hover {
-      background-color: #00b74a;
-    }
-    .thankyou {
-      display: none;
-      text-align: center;
-      padding: 20px;
-      color: #00c853;
-      font-size: 1.3em;
-      font-weight: bold;
+    .review-box {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
     }
     footer {
       text-align: center;
       padding: 20px;
+      background: #f7f7f7;
       font-size: 0.9em;
-      background-color: #f7f7f7;
     }
   </style>
 </head>
 <body>
 
-  <header>GA</header>
+<header>
+  <h1>GA</h1>
+  <nav>
+    <a href="#" onclick="showSection('home')">Home</a>
+    <a href="#" onclick="showSection('prodotto')">Prodotto</a>
+    <a href="#" onclick="showSection('ordine')">Ordina</a>
+    <a href="#" onclick="showSection('recensioni')">Recensioni</a>
+    <a href="#" onclick="showSection('contatti')">Contatti</a>
+  </nav>
+</header>
 
-  <div class="hero">
-    <h1>Benvenuto nel catalogo GA</h1>
-    <p>Scopri stile e tecnologia in un solo posto</p>
+<!-- Home -->
+<section id="home" class="section active">
+  <h2>Benvenuto su GA</h2>
+  <p>Scopri i nostri prodotti esclusivi, come AirPods 4 2024.</p>
+</section>
+
+<!-- Prodotto -->
+<section id="prodotto" class="section">
+  <div class="product-card">
+    <img src="img/airpods2024.jpg" alt="AirPods 4 2024">
+    <h3>AirPods 4 (2024)</h3>
+    <p>Le nuove AirPods 4 offrono audio premium, cancellazione attiva del rumore e durata della batteria migliorata. Compatibili con tutti i dispositivi Apple.</p>
+    <div class="price">75€</div>
   </div>
+</section>
 
-  <section class="catalogo">
+<!-- Ordine -->
+<section id="ordine" class="section">
+  <h2>Ordina le AirPods 4</h2>
+  <form action="https://formsubmit.co/ga.ordini@gmail.com" method="POST" onsubmit="mostraRingraziamento()">
+    <input type="email" name="email" placeholder="Inserisci la tua email" required>
+    <input type="hidden" name="prodotto" value="AirPods 4 (2024)">
+    <button type="submit">Invia ordine</button>
+  </form>
+  <div id="grazie" style="display:none; color:#00c853; font-weight:bold; margin-top:20px">
+    Grazie per l'ordine! Ti contatteremo su Instagram: <a href="https://instagram.com/venditori_italy" target="_blank">@venditori_italy</a>
+  </div>
+</section>
 
-    <!-- Prodotto: AirPods 4 -->
-    <div class="card">
-      <img src="img/airpods2024.jpg" alt="AirPods 4 2024" />
-      <div class="card-body">
-        <h2>AirPods 4 (2024)</h2>
-        <p>Le nuove AirPods 4 offrono audio premium, cancellazione del rumore attiva e una vestibilità migliorata. Perfette per ogni dispositivo.</p>
-        <div class="prezzo">75€</div>
+<!-- Recensioni -->
+<section id="recensioni" class="section">
+  <h2>Recensioni clienti</h2>
+  <p>Solo chi ha ordinato può lasciare una recensione.</p>
+  <div class="review-box">
+    <strong>Mario R. ⭐⭐⭐⭐⭐</strong>
+    <p>Audio perfetto, spedizione veloce. Consigliate!</p>
+  </div>
+</section>
 
-        <!-- FORM -->
-        <form id="ordineForm" action="https://formsubmit.co/ga.ordini@gmail.com" method="POST" onsubmit="mostraRingraziamento();">
-          <input type="email" name="email" placeholder="La tua email" required />
-          <input type="hidden" name="prodotto" value="AirPods 4 (2024)" />
-          <button type="submit">Ordina ora</button>
-        </form>
+<!-- Contatti -->
+<section id="contatti" class="section">
+  <h2>Contattaci</h2>
+  <p>Per qualsiasi domanda, scrivici su <a href="https://instagram.com/venditori_italy" target="_blank">Instagram</a>.</p>
+</section>
 
-        <!-- Messaggio ringraziamento -->
-        <div id="grazie" class="thankyou">✅ Grazie per il tuo ordine! Ti contatteremo presto su Instagram.</div>
+<footer>
+  &copy; 2025 GA - Tutti i diritti riservati
+</footer>
 
-      </div>
-    </div>
-
-  </section>
-
-  <footer>
-    &copy; 2025 GA | Segui gli ordini su <a href="https://instagram.com/tuoinstagram" target="_blank">@tuoinstagram</a>
-  </footer>
-
-  <script>
-    function mostraRingraziamento() {
-      const form = document.getElementById("ordineForm");
-      const msg = document.getElementById("grazie");
-
-      setTimeout(() => {
-        form.style.display = "none";
-        msg.style.display = "block";
-      }, 100); // Dopo invio
-    }
-  </script>
+<script>
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+  function mostraRingraziamento() {
+    setTimeout(() => {
+      document.querySelector("#grazie").style.display = 'block';
+    }, 500);
+  }
+</script>
 
 </body>
 </html>
