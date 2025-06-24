@@ -105,16 +105,6 @@
       border-radius: 6px;
       cursor: pointer;
     }
-    #form-section, #thankyou {
-      display: none;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    iframe {
-      width: 90%;
-      height: 600px;
-      border: none;
-    }
     footer {
       text-align: center;
       padding: 30px;
@@ -142,53 +132,71 @@
 
   <section class="products" id="product-list">
     <div class="product" data-name="airpods">
-      <img src="airpods2024.jpg" alt="AirPods 2024" onclick="openModal()">
+      <img src="airpods2024.jpg" alt="AirPods 2024" onclick="openModal('airpods')">
       <h3>AirPods 4 - 2024</h3>
       <p><strong>€75</strong></p>
+    </div>
+    <div class="product" data-name="magsafe">
+      <img src="magsafe.jpg" alt="MagSafe Apple" onclick="openModal('magsafe')">
+      <h3>Apple MagSafe Charger</h3>
+      <p><strong>€55</strong></p>
     </div>
   </section>
 
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <img src="airpods2024.jpg" alt="AirPods Dettagliate">
-      <h2>AirPods 4 - 2024</h2>
-      <div class="reviews">
-        <p>⭐️⭐️⭐️⭐️⭐️ "Audio fantastico!" - @utente.reale</p>
-        <p>⭐️⭐️⭐️⭐️ "Ottima qualità e batteria lunga." - @reviewer_it</p>
-      </div>
-      <p>Nuove AirPods 4, qualità audio migliorata, cancellazione del rumore, compatibili con iPhone e Android.</p>
-      <p><strong>€75</strong></p>
-      <button class="order-button" onclick="showForm()">Ordina ora</button>
+      <img id="modal-img" src="" alt="Prodotto">
+      <h2 id="modal-title"></h2>
+      <div class="reviews" id="modal-reviews"></div>
+      <p id="modal-desc"></p>
+      <p><strong id="modal-price"></strong></p>
+      <a class="order-button" href="https://instagram.com/venditori_italy" target="_blank">Ordina su Instagram</a>
     </div>
   </div>
-
-  <section id="form-section">
-    <h2>Completa il tuo ordine</h2>
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeCiZ7Ww2Tep3T9uftw8hFt7-Giv2ZggopA-K9zJQ2jopDBrA/viewform?embedded=true"></iframe>
-  </section>
-
-  <section id="thankyou">
-    <h2>Grazie per il tuo ordine! 💚</h2>
-    <p>Ti contatteremo su Instagram per confermare l'acquisto.</p>
-  </section>
 
   <footer>
     Seguici su Instagram: <strong>@venditori_italy</strong> — &copy; 2025 GA
   </footer>
 
   <script>
-    function openModal() {
+    const products = {
+      airpods: {
+        img: 'airpods2024.jpg',
+        title: 'AirPods 4 - 2024',
+        reviews: `
+          <p>⭐️⭐️⭐️⭐️⭐️ "Audio fantastico!" - @utente.reale</p>
+          <p>⭐️⭐️⭐️⭐️ "Ottima qualità e batteria lunga." - @reviewer_it</p>
+        `,
+        desc: 'Nuove AirPods 4, qualità audio migliorata, cancellazione del rumore, compatibili con iPhone e Android.',
+        price: '€75'
+      },
+      magsafe: {
+        img: 'magsafe.jpg',
+        title: 'Apple MagSafe Charger',
+        reviews: `
+          <p>⭐️⭐️⭐️⭐️⭐️ "Ricarica velocissima!" - @tecnofan</p>
+          <p>⭐️⭐️⭐️⭐️ "Perfetto con iPhone 13." - @applelover</p>
+        `,
+        desc: 'Caricatore Apple MagSafe originale, compatibile con tutti gli iPhone dotati di ricarica wireless magnetica.',
+        price: '€55'
+      }
+    };
+
+    function openModal(id) {
+      const p = products[id];
+      document.getElementById('modal-img').src = p.img;
+      document.getElementById('modal-title').textContent = p.title;
+      document.getElementById('modal-reviews').innerHTML = p.reviews;
+      document.getElementById('modal-desc').textContent = p.desc;
+      document.getElementById('modal-price').textContent = p.price;
       document.getElementById('modal').style.display = 'flex';
     }
+
     function closeModal() {
       document.getElementById('modal').style.display = 'none';
     }
-    function showForm() {
-      document.getElementById('form-section').style.display = 'block';
-      document.getElementById('modal').style.display = 'none';
-      window.scrollTo({ top: document.getElementById("form-section").offsetTop, behavior: 'smooth' });
-    }
+
     function searchProduct() {
       let input = document.getElementById("search").value.toLowerCase();
       let products = document.querySelectorAll(".product");
@@ -200,3 +208,4 @@
   </script>
 </body>
 </html>
+ 
