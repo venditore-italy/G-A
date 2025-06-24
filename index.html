@@ -33,8 +33,8 @@
       margin: 20px 0;
       animation: fadeInUp 2s ease-in;
     }
-    .catalog-btn {
-      margin-top: 30px;
+    .catalog-btn, .contact-btn {
+      margin: 10px;
       padding: 15px 30px;
       background: white;
       color: #1e7732;
@@ -45,16 +45,17 @@
       transition: background 0.3s;
       animation: bounceIn 2.5s;
     }
-    .catalog-btn:hover {
+    .catalog-btn:hover, .contact-btn:hover {
       background: #f2f2f2;
     }
-    header, nav, .products, footer {
+    header, nav, .products, footer, .back-btn {
       display: none;
     }
     .show-catalog header,
     .show-catalog nav,
     .show-catalog .products,
-    .show-catalog footer {
+    .show-catalog footer,
+    .show-catalog .back-btn {
       display: block;
     }
     header {
@@ -137,6 +138,19 @@
       border-radius: 6px;
       cursor: pointer;
     }
+    .back-btn {
+      margin: 20px auto;
+      text-align: center;
+    }
+    .back-btn button {
+      background: #1e7732;
+      color: white;
+      padding: 10px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
     footer {
       text-align: center;
       padding: 30px;
@@ -166,7 +180,8 @@
   <section class="hero" id="homepage">
     <h1>Benvenuto su GA</h1>
     <p>Scopri i migliori prodotti in vendita</p>
-    <button class="catalog-btn" onclick="showCatalog()">Entra nel Catalogo</button>
+    <button class="catalog-btn" onclick="showCatalog()">Catalogo</button>
+    <button class="contact-btn" onclick="alert('Contattaci su Instagram: @venditori_italy')">Contatti</button>
   </section>
 
   <header>
@@ -194,6 +209,10 @@
       <p><strong>€50</strong></p>
     </div>
   </section>
+  <div class="back-btn">
+    <button onclick="goHome()">Torna alla Home</button>
+  </div>
+
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -252,6 +271,10 @@
     function showCatalog() {
       document.body.classList.add('show-catalog');
       document.getElementById('homepage').style.display = 'none';
+    }
+    function goHome() {
+      document.body.classList.remove('show-catalog');
+      document.getElementById('homepage').style.display = 'flex';
     }
   </script>
 </body>
