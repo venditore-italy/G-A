@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GA - Catalogo</title>
+  <title>GA - Home</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -11,6 +11,51 @@
       font-family: 'Inter', sans-serif;
       background: #fff;
       color: #222;
+    }
+    .hero {
+      height: 100vh;
+      background: linear-gradient(120deg, #1e7732 0%, #2fa656 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: fadeIn 2s ease-in;
+    }
+    .hero h1 {
+      font-size: 4em;
+      margin: 0;
+      animation: slideIn 1.5s ease-out;
+    }
+    .hero p {
+      font-size: 1.5em;
+      margin: 20px 0;
+      animation: fadeInUp 2s ease-in;
+    }
+    .catalog-btn {
+      margin-top: 30px;
+      padding: 15px 30px;
+      background: white;
+      color: #1e7732;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      animation: bounceIn 2.5s;
+    }
+    .catalog-btn:hover {
+      background: #f2f2f2;
+    }
+    header, nav, .products, footer {
+      display: none;
+    }
+    .show-catalog header,
+    .show-catalog nav,
+    .show-catalog .products,
+    .show-catalog footer {
+      display: block;
     }
     header {
       background: #1e7732;
@@ -99,19 +144,39 @@
       font-size: 0.9em;
       color: #444;
     }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
   </style>
 </head>
 <body>
+  <section class="hero" id="homepage">
+    <h1>Benvenuto su GA</h1>
+    <p>Scopri i migliori prodotti in vendita</p>
+    <button class="catalog-btn" onclick="showCatalog()">Entra nel Catalogo</button>
+  </section>
+
   <header>
     <h1>GA</h1>
-    <p>Catalogo di vestiti e oggetti esclusivi</p>
+    <p>Catalogo ufficiale</p>
   </header>
-
   <nav>
     <span>Cerca:</span>
     <input type="text" id="search" placeholder="Cerca un prodotto" onkeyup="searchProduct()">
   </nav>
-
   <section class="products" id="product-list">
     <div class="product" data-name="airpods">
       <img src="airpods2024.jpg" alt="AirPods 2024" onclick="openModal('airpods')">
@@ -129,7 +194,6 @@
       <p><strong>€50</strong></p>
     </div>
   </section>
-
   <div class="modal" id="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -140,9 +204,7 @@
       <a class="order-button" href="https://instagram.com/venditori_italy" target="_blank">Ordina su Instagram</a>
     </div>
   </div>
-
   <footer>
-    <a href="index.html">Torna alla Home</a><br>
     Seguici su Instagram: <strong>@venditori_italy</strong> — &copy; 2025 GA
   </footer>
 
@@ -176,11 +238,9 @@
       document.getElementById('modal-price').textContent = p.price;
       document.getElementById('modal').style.display = 'flex';
     }
-
     function closeModal() {
       document.getElementById('modal').style.display = 'none';
     }
-
     function searchProduct() {
       let input = document.getElementById("search").value.toLowerCase();
       let products = document.querySelectorAll(".product");
@@ -188,6 +248,10 @@
         let name = p.getAttribute("data-name").toLowerCase();
         p.style.display = name.includes(input) ? "block" : "none";
       });
+    }
+    function showCatalog() {
+      document.body.classList.add('show-catalog');
+      document.getElementById('homepage').style.display = 'none';
     }
   </script>
 </body>
